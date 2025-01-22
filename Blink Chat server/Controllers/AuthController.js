@@ -14,7 +14,7 @@ const createToken = (email, userId) => {
 };
 
 
-// This is a function to manage all User Signup.
+// This is a function to manage signup that done by new User.
 export const signup = async (request, response) => {
     try {
       const { email, password } = request.body;
