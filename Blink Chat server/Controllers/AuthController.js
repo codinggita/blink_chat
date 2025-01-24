@@ -102,3 +102,27 @@ export const login = async (request, response) => {
   }
 };
 
+
+// This is a function to get all user info (After some time i use this user data in my frontend to set or modify existing user data.)
+export const getUserInfo = async (request, response) => {
+  try {
+    // Fetch user data using `request.userId` (set in the middleware)
+    const userData = await User.findById(request.userId);
+    if (!userData) {
+      return response.status(404).json({ message: "User with the given Id not found" });
+    }
+
+    response.status(200).json({
+      id: userData.id,
+      email: userData.email,
+      profileSetup: userData.profileSetup,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      image: userData.image,
+      color: userData.color,
+    });
+  } catch (error) {
+    console.log({ error });
+    return response.status(500).send("Internal server error");
+  }
+};
