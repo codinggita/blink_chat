@@ -3,7 +3,7 @@ import { Router } from "express";
 
 import {signup, login, getUserInfo}  from "../controllers/AuthController.js"; // Import the signup controller function from the controllers Folder.
 
-import { verifyToken } from "../middleware/AuthMiddleware.js";
+import { verifyToken } from "../middleware/AuthMiddleware.js"; // import the verifyToken function from middleware (That also shown in this commit.)
 
 const authRoutes = Router(); // Initialize a new router instance
 
