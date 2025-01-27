@@ -126,3 +126,30 @@ export const getUserInfo = async (request, response) => {
     return response.status(500).send("Internal server error");
   }
 };
+
+
+// updateProfile function is used to find user by id and update all userdata that we define in our user model.(User update it's profile in the profile setup frontend) 
+export const updateProfile = async (request, response) => {
+  try {
+    const { userId } = request
+    const { firstName, lastName, color } = request.body;
+    if (!firstName || !lastName || !color) {
+      return response.status(400).json({ message: "Firstname lastname and color are required" });
+    }
+
+    const userData = await User.findByIdAndUpdate(userId, { firstName, lastName, color, profileSetup: true }, { new: true, runValidators: true })
+
+    response.status(200).json({
+      id: userData.id,
+      email: userData.email,
+      profileSetup: userData.profileSetup,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      image: userData.image,
+      color: userData.color,
+    });
+  } catch (error) {
+    console.log({ error });
+    return response.status(500).send("Internal server error");
+  }
+};
