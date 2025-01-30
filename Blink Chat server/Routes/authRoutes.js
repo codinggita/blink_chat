@@ -11,6 +11,7 @@ authRoutes.post("/signup", signup); // Define a POST route for "/signup" that ca
 authRoutes.post("/login", login); // Define a POST route for "/Login" that calls the login Function.
 authRoutes.get('/user-info', verifyToken, getUserInfo) // Define a GET route for "/user-info" that calls the getUserInfo Function and requires a valid JWT token to verify the user.
 authRoutes.post('/update-profile', verifyToken, updateProfile) // Define a POST route for "/update-profile" that calls the updateProfile Function and taake all details from user using POST request.
+authRoutes.post('/add-profile-image', verifyToken, upload.single('profile-image') , addProfileImage) // Define a POST route for upload a progile image in frontend and also store image address in database.
 
 
 export default authRoutes; // // Export the router to use it in other parts of the application
