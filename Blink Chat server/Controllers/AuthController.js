@@ -153,3 +153,31 @@ export const updateProfile = async (request, response) => {
     return response.status(500).send("Internal server error");
   }
 };
+
+
+// addProfileImage function is used to add profile image to user data and in frontend we use multer to upload image.
+export const addProfileImage = async (request, response) => {
+  try {
+    if (!request.file) {
+      return response.status(400).send("File is Required.")
+    }
+    const date = Date.now();
+
+    let fileName = 'uploads/profiles/' + date + request.file.originalname;
+    renameSync(request.file.path, fileName);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      request.userId,
+      { image: fileName },
+      { new: true, runValidators: true }
+    );
+
+    return response.status(200).json({
+      image: updatedUser.image
+    });
+
+  } catch (error) {
+    console.log({ error });
+    return response.status(500).send("Internal server error");
+  }
+};
