@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 
-import {signup, login, getUserInfo}  from "../controllers/AuthController.js"; // Import the signup controller function from the controllers Folder.
+import {signup, login, getUserInfo, updateProfile, addProfileImage, removeProfileImage}  from "../controllers/AuthController.js"; // Import all the functions from the AuthController.js file (For authentication and profile setup.)
 
 import { verifyToken } from "../middleware/AuthMiddleware.js"; // import the verifyToken function from middleware (That also shown in this commit.)
 
