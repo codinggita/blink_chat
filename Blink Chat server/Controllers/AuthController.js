@@ -181,3 +181,25 @@ export const addProfileImage = async (request, response) => {
     return response.status(500).send("Internal server error");
   }
 };
+
+
+// removeProfileImage function is used to remove profile image from user data and also in frontend profile setup page.
+export const removeProfileImage = async (request, response) => {
+  try {
+    const { userId } = request
+    const user = User.findById(userId);
+
+    if (!user){
+      return response.status(404).send("User not found");
+    }
+
+    if(user.image){
+      unlinkSync(user.image)
+    }
+
+    response.status(200).send("Profile image removed Successfully.")
+  } catch (error) {
+    console.log({ error });
+    return response.status(500).send("Internal server error");
+  }
+};
