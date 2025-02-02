@@ -203,3 +203,15 @@ export const removeProfileImage = async (request, response) => {
     return response.status(500).send("Internal server error");
   }
 };
+
+
+// logOut function is used to logout from chat page for existing user to Login/Signup page.
+export const logOut = async (request, response) => {
+  try {
+    response.cookie("jwt","",{maxAge:1, secure:true, sameSite:"None"})
+    response.status(200).send("LogOut Sucessfull.")
+  } catch (error) {
+    console.log({ error });
+    return response.status(500).send("Internal server error");
+  }
+};
