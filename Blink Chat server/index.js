@@ -23,6 +23,11 @@ app.use(
 // Define routes for authentication
 app.use('/api/auth', authRoutes)
 
+
+// Define route for get Contacts
+app.use('/api/searchContact', contactRoute)
+
+
 const server = app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
