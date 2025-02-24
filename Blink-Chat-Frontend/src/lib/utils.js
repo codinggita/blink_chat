@@ -27,3 +27,10 @@ export const getColor = (color) => {
     // Default to the first color if the index is out of range
     return colors[0]; 
 };
+
+
+export const animationDefalutOptions = {
+    loop:true,
+    autoplay:true,
+    animationData,
+  }
