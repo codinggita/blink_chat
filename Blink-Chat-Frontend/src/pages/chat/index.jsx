@@ -5,35 +5,39 @@ import { toast } from 'sonner';
 import ChatContainer from './components/ChatContainer';
 import ContactsContainer from './components/ContactsContainer';
 import EmptyChatContainer from './components/EmptyChatContainer';
+import { useContact } from '@/store/slices/chat-slice.js';
 
 function Chat() {
 
-    const { userInfo } = useAppStore();
-    const navigate = useNavigate();
+const {userInfo} = useAppStore();
+const navigate = useNavigate();
+const { contact } = useContact();
 
-    useEffect(() => {
+console.log("Chat page:",contact)
 
-        if (!userInfo) {
-            // If userInfo is not defined, redirect to the login or another appropriate page
-            toast("User is not logged in. Redirecting...");
-            navigate('/auth');
-            return;
-        }
+useEffect(()=>{
 
-        // If profile-setup is not completed, redirect to the profile setup page
-        if (!userInfo.profileSetup) {
-            toast("Please setup profile to continue.")
-            navigate('/profile')
-        }
-    }, [userInfo, navigate])
+  if (!userInfo) {
+    // If userInfo is not defined, redirect to the login or another appropriate page
+    toast("User is not logged in. Redirecting...");
+    navigate('/auth');
+    return;
+  }
 
-    return (
-        <div className='flex h-[100vh] text-white overflow-hidden'>
-            {/* <ContactsContainer /> */}
-            {/* <ChatContainer/> */}
-            <EmptyChatContainer/>
-        </div>
-    )
+  if(!userInfo.profileSetup){
+    toast("Please setup profile to continue.")
+    navigate('/profile')
+  }
+}, [userInfo, navigate])
+
+  return (
+    <div className='flex h-[100vh] text-white overflow-hidden'>
+      <ContactsContainer />
+      {
+        contact ? <ChatContainer /> : <EmptyChatContainer/>
+      }
+    </div>
+  )
 }
 
 export default Chat
